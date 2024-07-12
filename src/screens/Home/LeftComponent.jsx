@@ -25,7 +25,7 @@ const ContentContainer = styled.div`
 `;
 
 const Logo = styled.img`
-  width: 100%;
+  width: 80%;
   margin-bottom: 1rem;
 `;
 
