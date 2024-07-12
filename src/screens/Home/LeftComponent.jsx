@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
-import logo from "../../assets/logo.png";
+// import logo from "../../assets/logo.png";
+import logo from "../../assets/codex-logo.png";
 import { ModalContext } from "../../context/ModalContext";
 
 const StyledLeftComponent = styled.div`
@@ -24,7 +25,7 @@ const ContentContainer = styled.div`
 `;
 
 const Logo = styled.img`
-  width: 165px;
+  width: 100%;
   margin-bottom: 1rem;
 `;
 
@@ -46,6 +47,8 @@ const SubHeading = styled.div`
 `;
 const AddNewButton = styled.button`
   padding: 0.25rem 1.5rem;
+  margin-left: auto;
+  margin-right: auto;
   font-size: 1rem;
   border: none;
   border-radius: 30px;
