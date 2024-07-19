@@ -7,7 +7,7 @@ export const languageMap = {
   cpp: {
     id: 54,
     defaultCode:
-      "#include <iostream>\n" +
+      "#include <bits/stdc++.h>\n" +
       "using namespace std;\n\n" +
       "int main() {\n" +
       '\tcout << "Hello World!";\n' +
