@@ -45,12 +45,12 @@ const PlaygroundProvider = ({ children }) => {
       title: "DSA",
       playgrounds: {
         [uuid()]: {
-          title: "Stack Implementation",
+          title: "C++ Example",
           language: "cpp",
           code: languageMap["cpp"].defaultCode,
         },
         [uuid()]: {
-          name: "Array",
+          title: "Javascript Example",
           language: "javascript",
           code: languageMap["javascript"].defaultCode,
         },
