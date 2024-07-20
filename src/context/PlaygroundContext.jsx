@@ -37,8 +37,42 @@ export const languageMap = {
       "         cout << result[i] << ' ';\n" +
       "    }\n" +
       "    return 0;\n" +
-      "}"
+      "}",
+    
+    leetCode2:
+    //linked list cycle
+    "#include <iostream>\n" +
+    "using namespace std;\n\n" +
+    "struct ListNode\n" +
+    "{\n" +
+    "   int val;\n" +
+    "   ListNode *next;\n" +
+    "   ListNode(int x) : val(x), next(nullptr) {};\n" +
+    "};\n\n" +
+    "bool hasCycle(ListNode *head){\n" +
+    "   if (head == NULL) return 0;\n" +
+    "   ListNode *slow = head;\n" +
+    "   ListNode *fast = head;\n" +
+    "   while (fast && fast->next){\n" +
+    "      slow = slow->next;\n" +
+    "      fast = fast->next->next;\n" +
+    "      if (slow == fast) return true;\n" +
+    "   }\n" +
+    "   return false;\n" +
+    "}\n\n" +
 
+    "int main() {\n" +
+      "    ListNode *head = new ListNode(3);\n" +
+      "    ListNode *two = new ListNode(2);\n" +
+      "    ListNode *zero = new ListNode(0);\n" +
+      "    ListNode *neg_four = new ListNode(-4);\n" +
+      "    head->next = two;\n" +
+      "    two->next = zero;\n" +
+      "    zero->next = neg_four;\n" +
+      "    neg_four->next = head->next;\n" +
+      '    cout << (hasCycle(head)? "Yes" : "No") << endl;\n' +
+      "    return 0;\n" +
+      "}",
   },
   java: {
     id: 62,
@@ -89,6 +123,11 @@ const PlaygroundProvider = ({ children }) => {
           title: "Two Sum",
           language: "cpp",
           code: languageMap["cpp"].leetCode1,
+        },
+        [uuid()]: {
+          title: "Linked List Cycle",
+          language: "cpp",
+          code: languageMap["cpp"].leetCode2,
         },
       },
     },
