@@ -13,6 +13,32 @@ export const languageMap = {
       '\tcout << "Hello World!";\n' +
       "\treturn 0;\n" +
       "}",
+    leetCode1:
+      "#include <iostream>\n"+
+      "#include <vector>\n"+
+      "#include <unordered_map>\n"+
+      "using namespace std;\n\n" +
+      "vector<int> twoSum(vector<int>& nums, int target) {\n" +
+      "    unordered_map<int, int> mp;\n" +
+      "    for (int i = 0; i < nums.size(); i++) {\n" +
+      "        int secondElement = target - nums[i];\n" +
+      "        if (mp.find(secondElement) != mp.end()){\n" +
+      "            return {mp[secondElement], i};\n" +
+      "        }\n" +
+      "        mp[nums[i]] = i;\n" +
+      "    }\n" +
+      "    return {};\n" +
+      "}\n\n"+
+      "int main() {\n" +
+      "    vector<int> nums = {2, 7, 11, 15};\n" +
+      "    int target = 9;\n" +
+      "    vector<int> result = twoSum(nums, target);\n" +
+      "    for(int i = 0; i < result.size(); i++){\n" +
+      "         cout << result[i] << ' ';\n" +
+      "    }\n" +
+      "    return 0;\n" +
+      "}"
+
   },
   java: {
     id: 62,
@@ -53,6 +79,16 @@ const PlaygroundProvider = ({ children }) => {
           title: "Javascript Example",
           language: "javascript",
           code: languageMap["javascript"].defaultCode,
+        },
+      },
+    },
+    [uuid()]: {
+      title: "LeetCode Questions",
+      playgrounds: {
+        [uuid()]: {
+          title: "Two Sum",
+          language: "cpp",
+          code: languageMap["cpp"].leetCode1,
         },
       },
     },
