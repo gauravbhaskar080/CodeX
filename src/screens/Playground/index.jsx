@@ -64,7 +64,7 @@ const Playground = () => {
       headers: {
         "content-type": "application/json",
         "Content-Type": "application/json",
-        "X-RapidAPI-Key": "3a9f8d2b2bmsh1fade4dfd1a93a4p1978ebjsn8813412645b0",
+        "X-RapidAPI-Key": "82f428cf82mshd4cd3a8e69a1cd3p191a1fjsnbe543430f34f",
         "X-RapidAPI-Host": "judge0-ce.p.rapidapi.com",
       },
       data: JSON.stringify({
@@ -78,26 +78,53 @@ const Playground = () => {
     return res.data.token;
   };
 
-  const getOutput = async (token) => {
-    // we will make api call here
-    const options = {
-      method: "GET",
-      url: "https://judge0-ce.p.rapidapi.com/submissions/" + token,
-      params: { base64_encoded: "true", fields: "*" },
-      headers: {
-        "X-RapidAPI-Key": "3a9f8d2b2bmsh1fade4dfd1a93a4p1978ebjsn8813412645b0",
-        "X-RapidAPI-Host": "judge0-ce.p.rapidapi.com",
-      },
-    };
+  // const getOutput = async (token) => {
+  //   // we will make api call here
+  //   const options = {
+  //     method: "GET",
+  //     url: "https://judge0-ce.p.rapidapi.com/submissions/" + token,
+  //     params: { base64_encoded: "true", fields: "*" },
+  //     headers: {
+  //       "X-RapidAPI-Key": "82f428cf82mshd4cd3a8e69a1cd3p191a1fjsnbe543430f34f",
+  //       "X-RapidAPI-Host": "judge0-ce.p.rapidapi.com",
+  //     },
+  //   };
 
-    // call the api
-    const res = await axios.request(options);
-    if (res.data.status_id <= 2) {
-      const res2 = await getOutput(token);
-      return res2.data;
+  //   // call the api
+  //   const res = await axios.request(options);
+  //   if (res.data.status_id <= 2) {
+  //     const res2 = await getOutput(token);
+  //     return res2.data;
+  //   }
+  //   return res.data;
+  // };
+
+  const getOutput = async (token) => {
+    try {
+      const options = {
+        method: "GET",
+        url: "https://judge0-ce.p.rapidapi.com/submissions/" + token,
+        params: { base64_encoded: "true", fields: "*" },
+        headers: {
+          "X-RapidAPI-Key": "82f428cf82mshd4cd3a8e69a1cd3p191a1fjsnbe543430f34f",
+          "X-RapidAPI-Host": "judge0-ce.p.rapidapi.com",
+        },
+      };
+  
+      const res = await axios.request(options);
+  
+      if (res.data && res.data.status_id <= 2) {
+        await new Promise((resolve) => setTimeout(resolve, 1000)); 
+        return await getOutput(token);
+      }
+  
+      return res.data; 
+    } catch (error) {
+      console.error("Error fetching output:", error);
+      return null;
     }
-    return res.data;
   };
+  
 
   const runCode = async () => {
     openModal({
