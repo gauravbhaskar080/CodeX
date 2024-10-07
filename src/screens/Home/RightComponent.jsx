@@ -8,6 +8,8 @@ import { ModalContext } from '../../context/ModalContext'
 import { PlaygroundContext } from '../../context/PlaygroundContext'
 import { useNavigate } from 'react-router-dom'
 
+import { ToastContainer, toast } from 'react-toastify';
+
 const StyledRightComponent = styled.div`
     position: absolute;
     top: 0;
@@ -119,8 +121,35 @@ const RightComponent = () => {
 
   const { openModal } = useContext(ModalContext);
   const { folders, deleteFolder, deleteCard } = useContext(PlaygroundContext);
+  const notifyDeleteSuccess = (message) => {
+    toast.error(message, {
+      position: "top-right",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      progressStyle: {
+        background: "red",
+        color: "#fff"
+      },
+      progressBar : false
+    });
+  };
+
+  const handleDeleteFolder = (folderId) => {
+    deleteFolder(folderId);
+    notifyDeleteSuccess("Folder deleted successfully");
+  };
+
+  const handleDeleteCard = (folderId, playgroundId) => {
+    deleteCard(folderId, playgroundId);
+    notifyDeleteSuccess("File deleted successfully");
+  };
 
   return (
+    <>
     <StyledRightComponent>
       <Header>
         <Heading size="large">
@@ -144,7 +173,7 @@ const RightComponent = () => {
                 <FcOpenedFolder /> {folder.title}
               </Heading>
               <FolderIcons>
-                <IoTrashOutline onClick={() => deleteFolder(folderId)} />
+                <IoTrashOutline onClick={() => handleDeleteFolder(folderId)} />
                 <BiEditAlt onClick={() => openModal({
                   show: true,
                   modalType: 4,
@@ -180,7 +209,7 @@ const RightComponent = () => {
                     <FolderIcons onClick={(e) => {
                       e.stopPropagation(); //stop click propagation from child to parent
                     }}>
-                      <IoTrashOutline onClick={() => deleteCard(folderId, playgroundId)} />
+                      <IoTrashOutline onClick={() => handleDeleteCard(folderId, playgroundId)} />
                       <BiEditAlt onClick={() => openModal({
                         show: true,
                         modalType: 5,
@@ -198,6 +227,8 @@ const RightComponent = () => {
         ))
       }
     </StyledRightComponent>
+    <ToastContainer />
+    </>
   )
 }
 

@@ -7,16 +7,14 @@ export const languageMap = {
   cpp: {
     id: 54,
     defaultCode:
-      "#include <iostream>\n" +
+      "#include <bits/stdc++.h>\n" +
       "using namespace std;\n\n" +
       "int main() {\n" +
       '\tcout << "Hello World!";\n' +
       "\treturn 0;\n" +
       "}",
     leetCode1:
-      "#include <iostream>\n"+
-      "#include <vector>\n"+
-      "#include <unordered_map>\n"+
+      "#include <bits/stdc++.h>\n"+
       "using namespace std;\n\n" +
       "vector<int> twoSum(vector<int>& nums, int target) {\n" +
       "    unordered_map<int, int> mp;\n" +
@@ -41,7 +39,7 @@ export const languageMap = {
     
     leetCode2:
     //linked list cycle
-    "#include <iostream>\n" +
+    "#include <bits/stdc++.h>\n" +
     "using namespace std;\n\n" +
     "struct ListNode\n" +
     "{\n" +

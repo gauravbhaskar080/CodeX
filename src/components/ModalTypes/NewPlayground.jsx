@@ -3,6 +3,9 @@ import { Header, CloseButton } from "../Modal";
 import { IoCloseSharp } from "react-icons/io5";
 import { ModalContext } from "../../context/ModalContext";
 import { PlaygroundContext } from "../../context/PlaygroundContext";
+
+import { toast } from 'react-toastify';
+
 import Select from "react-select";
 import styled from "styled-components";
 const InputWithSelect = styled.div`
@@ -54,6 +57,23 @@ const NewPlayground = () => {
     setLanguage(selectedOption);
   };
 
+  const notifySuccess = (message) => {
+    toast.success(message, {
+      position: "top-right",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      progressStyle: {
+        background: "green",
+        color: "#fff"
+      },
+      progressBar : false
+    });
+  };
+
   return (
     <>
       <Header>
@@ -73,6 +93,7 @@ const NewPlayground = () => {
           onClick={() => {
             addPlayground(folderId, cardTitle, language.label);
             closeModal();
+            notifySuccess("File created successfully");
           }}
         >
           {" "}

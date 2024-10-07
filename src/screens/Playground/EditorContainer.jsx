@@ -5,6 +5,8 @@ import { BiEditAlt, BiImport, BiExport, BiFullscreen } from "react-icons/bi";
 import { ModalContext } from "../../context/ModalContext";
 import Select from "react-select";
 import { languageMap } from "../../context/PlaygroundContext";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const StyledEditorContainer = styled.div`
   display: flex;
@@ -185,6 +187,25 @@ const EditorContainer = ({
     return languageOptions[0];
   });
 
+  const notifySaveCode = () => {
+    toast.dismiss();
+    toast.success("Code Saved Successfully!!!", {
+      position: "top-right",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      progressStyle: {
+        background: "green",
+        color: "#fff"
+      },
+      progressBar : false
+    });
+    saveCode();
+  };
+
   return (
     <StyledEditorContainer isFullScreen={isFullScreen}>
       {!isFullScreen && (
@@ -205,7 +226,8 @@ const EditorContainer = ({
                 }
               />
             </Title>
-            <Button onClick={saveCode}>Save code</Button>
+            <Button onClick={notifySaveCode}>Save code</Button>
+            <ToastContainer/>
           </Header>
           <SelectBars>
             <Select
