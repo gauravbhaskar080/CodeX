@@ -4,12 +4,38 @@ import { IoCloseSharp } from "react-icons/io5";
 import { ModalContext } from "../../context/ModalContext";
 import { PlaygroundContext } from "../../context/PlaygroundContext";
 
+import { toast } from 'react-toastify';
+
+
 const EditFolder = () => {
   const { closeModal, isOpenModal } = useContext(ModalContext);
   const { editFolderTitle, folders } = useContext(PlaygroundContext);
 
   const folderId = isOpenModal.identifiers.folderId;
   const [folderTitle, setFolderTitle] = useState(folders[folderId].title);
+
+  const notifyRename = (msg) => {
+    toast.success(msg, {
+      position: "top-right",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      progressStyle: {
+        background: "green",
+        color: "#fff"
+      },
+      progressBar : false
+    });
+  };
+
+  const handleRenameFolder = (folderId,folderTitle) => {
+    editFolderTitle(folderId, folderTitle);
+    closeModal();
+    notifyRename("Rename folder successfully");
+  }
 
   return (
     <>
@@ -22,10 +48,7 @@ const EditFolder = () => {
       <Input>
         <input type="text" onChange={(e) => setFolderTitle(e.target.value)} />
         <button
-          onClick={() => {
-            editFolderTitle(folderId, folderTitle);
-            closeModal();
-          }}
+          onClick={() => handleRenameFolder(folderId, folderTitle)}
         >
           Update Title
         </button>

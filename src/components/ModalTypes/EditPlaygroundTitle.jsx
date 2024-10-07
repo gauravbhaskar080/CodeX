@@ -3,6 +3,8 @@ import { Header, CloseButton, Input } from '../Modal'
 import { IoCloseSharp } from 'react-icons/io5'
 import { ModalContext } from '../../context/ModalContext'
 import { PlaygroundContext } from '../../context/PlaygroundContext'
+import { toast } from 'react-toastify';
+
 
 const EditPlaygroundTitle = () => {
   const { isOpenModal, closeModal } = useContext(ModalContext);
@@ -10,6 +12,29 @@ const EditPlaygroundTitle = () => {
 
   const { folderId, cardId } = isOpenModal.identifiers;
   const [playgroundTitle, setPlaygroundTitle] = useState(folders[folderId].playgrounds[cardId].title);
+
+  const notifyRename = (msg) => {
+    toast.success(msg, {
+      position: "top-right",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      progressStyle: {
+        background: "green",
+        color: "#fff"
+      },
+      progressBar : false
+    });
+  };
+
+  const handleRenameFile = (folderId,cardId, playgroundTitle) => {
+    editPlaygroundTitle(folderId, cardId, playgroundTitle)
+    closeModal();
+    notifyRename("Rename file successfully");
+  }
 
   return (
     <>
@@ -21,10 +46,7 @@ const EditPlaygroundTitle = () => {
       </Header>
       <Input>
         <input type="text" onChange={(e) => setPlaygroundTitle(e.target.value)} />
-        <button onClick={() => {
-          editPlaygroundTitle(folderId, cardId, playgroundTitle)
-          closeModal()
-        }}>Update Title</button>
+        <button onClick={() => handleRenameFile(folderId,cardId,playgroundTitle)}>Update Title</button>
       </Input>
     </>
   )

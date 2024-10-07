@@ -138,6 +138,8 @@ const RightComponent = () => {
     });
   };
 
+  
+
   const handleDeleteFolder = (folderId) => {
     deleteFolder(folderId);
     notifyDeleteSuccess("Folder deleted successfully");
@@ -162,7 +164,8 @@ const RightComponent = () => {
             folderId: "",
             cardId: "",
           }
-        })}> <span>+</span> New Folder</AddButton>
+        })}>
+        <span>+</span> New Folder</AddButton>
       </Header>
 
       {
