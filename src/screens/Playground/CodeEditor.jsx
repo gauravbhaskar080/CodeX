@@ -14,6 +14,16 @@ import { androidstudio } from "@uiw/codemirror-theme-androidstudio";
 import { monokai } from "@uiw/codemirror-theme-monokai";
 import { red } from "@uiw/codemirror-theme-red";
 import { sublime } from "@uiw/codemirror-theme-sublime";
+import { abcdef } from "@uiw/codemirror-theme-abcdef";
+import { abyss } from "@uiw/codemirror-theme-abyss";
+import { andromeda } from "@uiw/codemirror-theme-andromeda";
+import { basicDark } from "@uiw/codemirror-theme-basic"; 
+import { copilot } from "@uiw/codemirror-theme-copilot"; 
+import { materialLight, materialDark } from "@uiw/codemirror-theme-material"; 
+import { solarizedLight, solarizedDark } from "@uiw/codemirror-theme-solarized"; 
+import { tokyoNight } from "@uiw/codemirror-theme-tokyo-night"; 
+import { tokyoNightDay } from "@uiw/codemirror-theme-tokyo-night-day"; 
+import { tomorrowNightBlue } from "@uiw/codemirror-theme-tomorrow-night-blue"; 
 
 // language
 import { cpp } from "@codemirror/lang-cpp";
@@ -60,6 +70,18 @@ const CodeEditor = ({
     if (currentTheme === "monokai") setTheme(monokai);
     if (currentTheme === "red") setTheme(red);
     if (currentTheme === "sublime") setTheme(sublime);
+    if (currentTheme === "abcdef") setTheme(abcdef);
+    if (currentTheme === "abyss") setTheme(abyss);
+    if (currentTheme === "andromeda") setTheme(andromeda);
+    if (currentTheme === "basicDark") setTheme(basicDark);
+    if (currentTheme === "copilot") setTheme(copilot);
+    if (currentTheme === "materialLight") setTheme(materialLight);
+    if (currentTheme === "materialDark") setTheme(materialDark);
+    if (currentTheme === "solarizedLight") setTheme(solarizedLight);
+    if (currentTheme === "solarizedDark") setTheme(solarizedDark);
+    if (currentTheme === "tokyoNight") setTheme(tokyoNight);
+    if (currentTheme === "tokyoNightDay") setTheme(tokyoNightDay);
+    if (currentTheme === "tomorrowNightBlue") setTheme(tomorrowNightBlue);
   }, [currentTheme]);
 
   return (

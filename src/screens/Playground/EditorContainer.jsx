@@ -138,30 +138,43 @@ const EditorContainer = ({
 }) => {
   const { openModal } = useContext(ModalContext);
   const themeOptions = [
-    { value: "githubDark", label: "githubDark" },
-    { value: "githubLight", label: "githubLight" },
-    { value: "bespin", label: "bespin" },
-    { value: "duotoneDark", label: "duotoneDark" },
-    { value: "duotoneLight", label: "duotoneLight" },
-    { value: "dracula", label: "dracula" },
-    { value: "xcodeDark", label: "xcodeDark" },
-    { value: "xcodeLight", label: "xcodeLight" },
-    { value: "vscodeDark", label: "vscodeDark" },
-    { value: "vscodeLight", label: "vscodeLight" },
-    { value: "okaidia", label: "okaidia" },
-    { value: "androidstudio", label: "androidstudio" },
-    { value: "monokai", label: "monokai" },
-    { value: "sublime", label: "sublime" },
-    { value: "red", label: "red" },
+    { value: "vscodeDark", label: "vscode-Dark" },
+    { value: "vscodeLight", label: "vscode-Light" },
+    { value: "red", label: "Red" },
+    { value: "abyss", label: "Abyss" },
+    { value: "abcdef", label: "Abcdef" },
+    { value: "bespin", label: "Bespin" },
+    { value: "copilot", label: "Copilot" },
+    { value: "okaidia", label: "Okaidia" }, 
+    { value: "sublime", label: "Sublime" },
+    { value: "dracula", label: "Dracula" },
+    { value: "monokai", label: "Monokai" }, 
+    { value: "tomorrowNightBlue", label: "Night Blue" }, 
+    { value: "basicDark", label: "Basic-Dark" },
+    { value: "andromeda", label: "Andromeda" },
+    { value: "androidstudio", label: "Android-studio" },      
+    { value: "githubDark", label: "Github-Dark" },
+    { value: "githubLight", label: "Github-Light" },
+    { value: "xcodeDark", label: "xcode-Dark" },
+    { value: "xcodeLight", label: "xcode-Light" },
+    { value: "tokyoNight", label: "Tokyo-Night" },   
+    { value: "tokyoNightDay", label: "Tokyo-Night Day" }, 
+    { value: "duotoneDark", label: "Duotone-Dark" },
+    { value: "duotoneLight", label: "Duotone-Light" },
+    { value: "materialDark", label: "Material-Dark" },
+    { value: "materialLight", label: "Material-Light" },
+    { value: "solarizedDark", label: "Solarized-Dark" },
+    { value: "solarizedLight", label: "Solarized-Light" },   
+          
   ];
 
   const languageOptions = [
-    { value: "cpp", label: "cpp" },
-    { value: "javascript", label: "javascript" },
-    { value: "java", label: "java" },
-    { value: "python", label: "python" },
-    { value: "php", label: "php" },
-    { value: "rust", label: "rust" }
+    { value: "cpp", label: "C++" },
+    { value: "javascript", label: "Javascript" },
+    { value: "java", label: "Java" },
+    { value: "python", label: "Python" },
+    { value: "php", label: "Php" },
+    { value: "rust", label: "Rust" }
   ];
 
   const handleThemeChange = (selectedOption) => {
@@ -176,7 +189,7 @@ const EditorContainer = ({
 
   const [currentTheme, setCurrentTheme] = useState({
     value: "vscodeDark",
-    label: "vscodeDark",
+    label: "vscode-Dark",
   });
   const [language, setLanguage] = useState(() => {
     for (let i = 0; i < languageOptions.length; i++) {

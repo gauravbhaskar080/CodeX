@@ -108,9 +108,29 @@ const PlaygroundProvider = ({ children }) => {
           code: languageMap["cpp"].defaultCode,
         },
         [uuid()]: {
+          title: "Java Example",
+          language: "java",
+          code: languageMap["java"].defaultCode,
+        },
+        [uuid()]: {
+          title: "Python Example",
+          language: "python",
+          code: languageMap["python"].defaultCode,
+        },
+        [uuid()]: {
           title: "Javascript Example",
           language: "javascript",
           code: languageMap["javascript"].defaultCode,
+        },
+        [uuid()]: {
+          title: "Php Example",
+          language: "php",
+          code: languageMap["php"].defaultCode,
+        },
+        [uuid()]: {
+          title: "Rust Example",
+          language: "rust",
+          code: languageMap["rust"].defaultCode,
         },
       },
     },
