@@ -14,7 +14,7 @@ const EditPlaygroundTitle = () => {
   const [playgroundTitle, setPlaygroundTitle] = useState(folders[folderId].playgrounds[cardId].title);
 
   const notifyRename = (msg) => {
-    toast.success(msg, {
+    toast.info(msg, {
       position: "top-right",
       autoClose: 2000,
       hideProgressBar: false,
@@ -22,11 +22,6 @@ const EditPlaygroundTitle = () => {
       pauseOnHover: true,
       draggable: true,
       progress: undefined,
-      progressStyle: {
-        background: "green",
-        color: "#fff"
-      },
-      progressBar : false
     });
   };
 

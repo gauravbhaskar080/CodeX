@@ -134,7 +134,6 @@ const RightComponent = () => {
         background: "red",
         color: "#fff"
       },
-      progressBar : false
     });
   };
 

@@ -33,7 +33,7 @@ const CodeEditor = ({
   currentCode,
   setCurrentCode,
 }) => {
-  const [theme, setTheme] = useState(githubDark);
+  const [theme, setTheme] = useState(vscodeDark);
   const [language, setLanguage] = useState(javascript);
 
   useEffect(() => {

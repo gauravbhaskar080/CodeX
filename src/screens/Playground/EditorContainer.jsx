@@ -175,8 +175,8 @@ const EditorContainer = ({
   };
 
   const [currentTheme, setCurrentTheme] = useState({
-    value: "githubDark",
-    label: "githubDark",
+    value: "vscodeDark",
+    label: "vscodeDark",
   });
   const [language, setLanguage] = useState(() => {
     for (let i = 0; i < languageOptions.length; i++) {

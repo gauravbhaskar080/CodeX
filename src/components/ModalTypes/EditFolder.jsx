@@ -15,7 +15,7 @@ const EditFolder = () => {
   const [folderTitle, setFolderTitle] = useState(folders[folderId].title);
 
   const notifyRename = (msg) => {
-    toast.success(msg, {
+    toast.info(msg, {
       position: "top-right",
       autoClose: 2000,
       hideProgressBar: false,
@@ -23,11 +23,6 @@ const EditFolder = () => {
       pauseOnHover: true,
       draggable: true,
       progress: undefined,
-      progressStyle: {
-        background: "green",
-        color: "#fff"
-      },
-      progressBar : false
     });
   };
 
