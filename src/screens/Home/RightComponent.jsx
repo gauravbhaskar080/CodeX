@@ -8,6 +8,14 @@ import { ModalContext } from '../../context/ModalContext'
 import { PlaygroundContext } from '../../context/PlaygroundContext'
 import { useNavigate } from 'react-router-dom'
 
+import cpp from '../../assets/3d-c++.png';
+import java from '../../assets/java.png';
+import python from '../../assets/python.png';
+import javascript from '../../assets/javascript.png';
+import php from '../../assets/php.png';
+import rust from '../../assets/rust.png';
+import folderLogo from '../../assets/folder.png';
+
 import { ToastContainer, toast } from 'react-toastify';
 
 const StyledRightComponent = styled.div`
@@ -148,7 +156,14 @@ const RightComponent = () => {
     deleteCard(folderId, playgroundId);
     notifyDeleteSuccess("File deleted successfully");
   };
-
+  const languageLogos = {
+    cpp: cpp,
+    python: python,
+    java: java,
+    javascript: javascript,
+    php: php,
+    rust: rust
+  };
   return (
     <>
     <StyledRightComponent>
@@ -172,7 +187,8 @@ const RightComponent = () => {
           <FolderCard key={folderId}>
             <Header>
               <Heading size="small">
-                <FcOpenedFolder /> {folder.title}
+                {/* <FcOpenedFolder /> {folder.title} */}
+                <Logo src={folderLogo} style={{width : "30px" , marginRight:"0"}}/> {folder.title}
               </Heading>
               <FolderIcons>
                 <IoTrashOutline onClick={() => handleDeleteFolder(folderId)} />
@@ -202,7 +218,8 @@ const RightComponent = () => {
                     navigate(`/playground/${folderId}/${playgroundId}`)
                   }}>
                     <CardContainer>
-                      <Logo src={logo} />
+                      {/* <Logo src={logo} /> */}
+                      <Logo src={languageLogos[playground.language] || logo} />
                       <CardContent>
                         <p>{playground.title}</p>
                         <p>Language: {playground.language}</p>
