@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import EditorContainer from "./EditorContainer";
 import InputConsole from "./InputConsole";
 import OutputConsole from "./OutputConsole";
+import TimeAndMemoryConsole from "./TimeAndMemoryConsole";
 import Navbar from "./Navbar";
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
@@ -13,6 +14,8 @@ import { ModalContext } from "../../context/ModalContext";
 import Modal from "../../components/Modal";
 import { Buffer } from "buffer";
 import axios from "axios";
+
+
 const MainContainer = styled.div`
   display: grid;
   grid-template-columns: ${({ isFullScreen }) =>
@@ -43,6 +46,8 @@ const Playground = () => {
   const [currentOutput, setCurrentOutput] = useState("");
   const [isFullScreen, setIsFullScreen] = useState(false);
 
+  const [currentTimeMemory, setCurrentTimeMemory] = useState("");
+
   // all logic of the playground
   const saveCode = () => {
     savePlayground(folderId, playgroundId, currentCode, currentLanguage);
@@ -64,7 +69,8 @@ const Playground = () => {
       headers: {
         "content-type": "application/json",
         "Content-Type": "application/json",
-        "X-RapidAPI-Key": "82f428cf82mshd4cd3a8e69a1cd3p191a1fjsnbe543430f34f",
+        // "X-RapidAPI-Key": "82f428cf82mshd4cd3a8e69a1cd3p191a1fjsnbe543430f34f",
+        "X-RapidAPI-Key": "d3f73b18aemshcd338a32620a431p145052jsnd08970d4002d",
         "X-RapidAPI-Host": "judge0-ce.p.rapidapi.com",
       },
       data: JSON.stringify({
@@ -106,7 +112,8 @@ const Playground = () => {
         url: "https://judge0-ce.p.rapidapi.com/submissions/" + token,
         params: { base64_encoded: "true", fields: "*" },
         headers: {
-          "X-RapidAPI-Key": "82f428cf82mshd4cd3a8e69a1cd3p191a1fjsnbe543430f34f",
+          // "X-RapidAPI-Key": "82f428cf82mshd4cd3a8e69a1cd3p191a1fjsnbe543430f34f",
+          "X-RapidAPI-Key": "d3f73b18aemshcd338a32620a431p145052jsnd08970d4002d",
           "X-RapidAPI-Host": "judge0-ce.p.rapidapi.com",
         },
       };
@@ -151,6 +158,10 @@ const Playground = () => {
     );
     const decoded_error = decode(res.stderr ? res.stderr : "");
 
+    // Time and memory usage
+    const executionTime = res.time; // Time in seconds
+    const memoryUsage = res.memory; // Memory in kilobytes (KB)
+
     let final_output = "";
     if (res.status_id !== 3) {
       // our code have some error
@@ -163,6 +174,8 @@ const Playground = () => {
       final_output = decoded_output;
     }
     setCurrentOutput(status_name + "\n\n" + final_output);
+    const timeMemoryOutput = `Time: ${executionTime} seconds\nMemory: ${memoryUsage} KB`;
+    setCurrentTimeMemory(timeMemoryOutput); // New state to handle time/memory output
     closeModal();
   };
 
@@ -215,6 +228,7 @@ const Playground = () => {
             getFile={getFile}
           />
           <OutputConsole currentOutput={currentOutput} />
+          <TimeAndMemoryConsole currentOutput={currentTimeMemory} /> 
         </Consoles>
       </MainContainer>
       {isOpenModal.show && <Modal />}

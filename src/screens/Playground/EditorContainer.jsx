@@ -1,12 +1,12 @@
 import React, { useContext, useState } from "react";
 import CodeEditor from "./CodeEditor";
 import styled from "styled-components";
-import { BiEditAlt, BiImport, BiExport, BiFullscreen } from "react-icons/bi";
+import { BiEditAlt, BiImport, BiExport, BiFullscreen, BiPlay, BiStop } from "react-icons/bi";
 import { ModalContext } from "../../context/ModalContext";
 import Select from "react-select";
 import { languageMap } from "../../context/PlaygroundContext";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const StyledEditorContainer = styled.div`
   display: flex;
@@ -122,6 +122,19 @@ const SaveAndRunButton = styled.button`
   cursor: pointer;
 `;
 
+const RunButton = styled.button`
+  padding: 0.32rem ;
+  background: #0097d7;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  
+  svg {
+    font-size: 1.5rem;
+  }
+`;
+
 const EditorContainer = ({
   title,
   currentLanguage,
@@ -137,6 +150,8 @@ const EditorContainer = ({
   setIsFullScreen,
 }) => {
   const { openModal } = useContext(ModalContext);
+  const [isRunning, setIsRunning] = useState(false);
+
   const themeOptions = [
     { value: "vscodeDark", label: "vscode-Dark" },
     { value: "vscodeLight", label: "vscode-Light" },
@@ -145,27 +160,26 @@ const EditorContainer = ({
     { value: "abcdef", label: "Abcdef" },
     { value: "bespin", label: "Bespin" },
     { value: "copilot", label: "Copilot" },
-    { value: "okaidia", label: "Okaidia" }, 
+    { value: "okaidia", label: "Okaidia" },
     { value: "sublime", label: "Sublime" },
     { value: "dracula", label: "Dracula" },
-    { value: "monokai", label: "Monokai" }, 
-    { value: "tomorrowNightBlue", label: "Night Blue" }, 
+    { value: "monokai", label: "Monokai" },
+    { value: "tomorrowNightBlue", label: "Night Blue" },
     { value: "basicDark", label: "Basic-Dark" },
     { value: "andromeda", label: "Andromeda" },
-    { value: "androidstudio", label: "Android-studio" },      
+    { value: "androidstudio", label: "Android-studio" },
     { value: "githubDark", label: "Github-Dark" },
     { value: "githubLight", label: "Github-Light" },
     { value: "xcodeDark", label: "xcode-Dark" },
     { value: "xcodeLight", label: "xcode-Light" },
-    { value: "tokyoNight", label: "Tokyo-Night" },   
-    { value: "tokyoNightDay", label: "Tokyo-Night Day" }, 
+    { value: "tokyoNight", label: "Tokyo-Night" },
+    { value: "tokyoNightDay", label: "Tokyo-Night Day" },
     { value: "duotoneDark", label: "Duotone-Dark" },
     { value: "duotoneLight", label: "Duotone-Light" },
     { value: "materialDark", label: "Material-Dark" },
     { value: "materialLight", label: "Material-Light" },
     { value: "solarizedDark", label: "Solarized-Dark" },
-    { value: "solarizedLight", label: "Solarized-Light" },   
-          
+    { value: "solarizedLight", label: "Solarized-Light" },
   ];
 
   const languageOptions = [
@@ -174,7 +188,7 @@ const EditorContainer = ({
     { value: "java", label: "Java" },
     { value: "python", label: "Python" },
     { value: "php", label: "Php" },
-    { value: "rust", label: "Rust" }
+    { value: "rust", label: "Rust" },
   ];
 
   const handleThemeChange = (selectedOption) => {
@@ -212,11 +226,20 @@ const EditorContainer = ({
       progress: undefined,
       progressStyle: {
         background: "green",
-        color: "#fff"
+        color: "#fff",
       },
-      progressBar : false
+      progressBar: false,
     });
     saveCode();
+  };
+
+  const handleRunCode = () => {
+    setIsRunning(true);
+    runCode();
+
+    setTimeout(() => {
+      setIsRunning(false); 
+    }, 2000);
   };
 
   return (
@@ -240,7 +263,7 @@ const EditorContainer = ({
               />
             </Title>
             <Button onClick={notifySaveCode}>Save code</Button>
-            <ToastContainer/>
+            <ToastContainer />
           </Header>
           <SelectBars>
             <Select
@@ -253,6 +276,9 @@ const EditorContainer = ({
               value={currentTheme}
               onChange={handleThemeChange}
             />
+            <RunButton onClick={handleRunCode}>
+              {isRunning ? <BiStop/> :<BiPlay />}
+            </RunButton>
           </SelectBars>
         </UpperToolBar>
       )}
@@ -289,7 +315,7 @@ const EditorContainer = ({
         >
           <BiExport /> Export Code
         </a>
-        <SaveAndRunButton onClick={runCode}>Run Code</SaveAndRunButton>
+        <SaveAndRunButton onClick={handleRunCode}>Run Code</SaveAndRunButton>
       </LowerToolBar>
     </StyledEditorContainer>
   );
