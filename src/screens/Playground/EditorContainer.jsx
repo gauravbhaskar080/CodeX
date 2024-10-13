@@ -76,8 +76,8 @@ const Button = styled.button`
 `;
 
 const CodeEditorContainer = styled.div`
-  height: calc(100% - 4rem);
-
+  height: calc(90% - 4rem);
+  
   & > div {
     height: 100%;
   }
@@ -150,7 +150,6 @@ const EditorContainer = ({
   setIsFullScreen,
 }) => {
   const { openModal } = useContext(ModalContext);
-  const [isRunning, setIsRunning] = useState(false);
 
   const themeOptions = [
     { value: "vscodeDark", label: "vscode-Dark" },
@@ -233,15 +232,6 @@ const EditorContainer = ({
     saveCode();
   };
 
-  const handleRunCode = () => {
-    setIsRunning(true);
-    runCode();
-
-    setTimeout(() => {
-      setIsRunning(false); 
-    }, 2000);
-  };
-
   return (
     <StyledEditorContainer isFullScreen={isFullScreen}>
       {!isFullScreen && (
@@ -276,9 +266,6 @@ const EditorContainer = ({
               value={currentTheme}
               onChange={handleThemeChange}
             />
-            <RunButton onClick={handleRunCode}>
-              {isRunning ? <BiStop/> :<BiPlay />}
-            </RunButton>
           </SelectBars>
         </UpperToolBar>
       )}
@@ -315,7 +302,7 @@ const EditorContainer = ({
         >
           <BiExport /> Export Code
         </a>
-        <SaveAndRunButton onClick={handleRunCode}>Run Code</SaveAndRunButton>
+        <SaveAndRunButton onClick={runCode}>Run Code</SaveAndRunButton>
       </LowerToolBar>
     </StyledEditorContainer>
   );

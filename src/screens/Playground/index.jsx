@@ -16,16 +16,29 @@ import { Buffer } from "buffer";
 import axios from "axios";
 
 
+// const MainContainer = styled.div`
+//   display: grid;
+//   grid-template-columns: ${({ isFullScreen }) =>
+//     isFullScreen ? "1fr" : "2fr 1fr"};
+//   min-height: ${({ isFullScreen }) =>
+//     isFullScreen ? "100vh" : "calc(100vh - 4.5rem)"};
+//   @media (max-width: 768px) {
+//     grid-template-columns: 1fr;
+//   }
+// `;
+
 const MainContainer = styled.div`
   display: grid;
+  height: ${({ isFullScreen }) => 
+    isFullScreen ? "100vh" : "calc(100vh - 4.5rem)"};
   grid-template-columns: ${({ isFullScreen }) =>
     isFullScreen ? "1fr" : "2fr 1fr"};
-  min-height: ${({ isFullScreen }) =>
-    isFullScreen ? "100vh" : "calc(100vh - 4.5rem)"};
+  overflow: hidden; // Ensures no scrollbars
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
   }
 `;
+
 
 const Consoles = styled.div`
   display: grid;
