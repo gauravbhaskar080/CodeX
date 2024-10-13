@@ -36,6 +36,7 @@ const MainContainer = styled.div`
   overflow: hidden; // Ensures no scrollbars
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
+    overflow: auto; // Allows scrollbars
   }
 `;
 
