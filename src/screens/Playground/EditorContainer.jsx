@@ -14,6 +14,8 @@ const StyledEditorContainer = styled.div`
   width: 100%;
   min-height: ${({ isFullScreen }) =>
     isFullScreen ? "100vh" : "calc(100vh - 4.5rem)"};
+  @media (max-width: 768px) {
+    height: ${({ isFullScreen }) => (isFullScreen ? "100vh" : "calc(100vh - -11rem)")};
 `;
 
 const UpperToolBar = styled.div`
@@ -111,6 +113,9 @@ const LowerToolBar = styled.div`
   button:last-child {
     font-weight: 400;
     font-size: 1.1rem;
+  }
+  @media (max-width: 540px) {
+    width: 98%;
   }
 `;
 const SaveAndRunButton = styled.button`
