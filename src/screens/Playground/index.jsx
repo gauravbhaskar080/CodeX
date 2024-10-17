@@ -34,12 +34,12 @@ const MainContainer = styled.div`
   grid-template-columns: ${({ isFullScreen }) =>
     isFullScreen ? "1fr" : "2fr 1fr"};
   overflow: hidden; // Ensures no scrollbars
-  @media (max-width: 1024px) {
-    overflow: auto; // Allows scrollbars
+  @media (max-width: 1000px) {
+    overflow: auto; 
   }
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
-    overflow: auto; // Allows scrollbars
+    overflow: auto; 
   }
 `;
 
