@@ -15,7 +15,7 @@ const StyledEditorContainer = styled.div`
   min-height: ${({ isFullScreen }) =>
     isFullScreen ? "100vh" : "calc(100vh - 4.5rem)"};
   @media (max-width: 768px) {
-    height: ${({ isFullScreen }) => (isFullScreen ? "100vh" : "calc(100vh - -21rem)")};
+    height: ${({ isFullScreen }) => (isFullScreen ? "100vh" : "calc(100vh - -7rem)")};
 `;
 
 const UpperToolBar = styled.div`
