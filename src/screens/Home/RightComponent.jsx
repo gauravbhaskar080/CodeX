@@ -276,7 +276,7 @@ const RightComponent = () => {
             </Header>
 
             <PlayGroundCards>
-              {Object.entries(folder["playgrounds"]).reverse().map(
+              {Object.entries(folder["playgrounds"]).map(
                 ([playgroundId, playground]) => (
                   <Card
                     key={playgroundId}
