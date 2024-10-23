@@ -233,7 +233,7 @@ const RightComponent = () => {
           </AddButton>
         </Header>
 
-        {Object.entries(folders).map(([folderId, folder]) => (
+        {Object.entries(folders).reverse().map(([folderId, folder]) => (
           <FolderCard key={folderId}>
             <Header>
               <Heading size="small">
@@ -276,7 +276,7 @@ const RightComponent = () => {
             </Header>
 
             <PlayGroundCards>
-              {Object.entries(folder["playgrounds"]).map(
+              {Object.entries(folder["playgrounds"]).reverse().map(
                 ([playgroundId, playground]) => (
                   <Card
                     key={playgroundId}
@@ -285,7 +285,6 @@ const RightComponent = () => {
                     }}
                   >
                     <CardContainer>
-                      {/* <Logo src={logo} /> */}
                       <Logo src={languageLogos[playground.language] || logo} />
                       <CardContent>
                         <p>{playground.title}</p>
