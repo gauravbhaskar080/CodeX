@@ -210,12 +210,17 @@ const RightComponent = () => {
     });
   };
 
+  const totalPlaygrounds = Object.values(folders).reduce(
+    (acc, folder) => acc + Object.keys(folder).length-1,
+    0
+  );
+
   return (
     <>
       <StyledRightComponent>
         <Header>
           <Heading size="large">
-            My <span>Playground</span>
+            My <span>Playground</span> [{totalPlaygrounds}]
           </Heading>
           <AddButton
             onClick={() =>
