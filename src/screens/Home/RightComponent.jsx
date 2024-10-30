@@ -243,6 +243,7 @@ const RightComponent = () => {
                   style={{ width: "30px", marginRight: "0" }}
                 />{" "}
                 {folder.title}
+                {" "}[{Object.keys(folder.playgrounds).length}]
               </Heading>
               <FolderIcons>
                 <IoTrashOutline onClick={() => handleDeleteFolder(folderId)} />
