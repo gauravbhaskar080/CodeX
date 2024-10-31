@@ -1,8 +1,8 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useRef } from "react";
 import styled from "styled-components";
-import { IoTrashOutline } from "react-icons/io5";
+import { IoTrashOutline, IoSearch } from "react-icons/io5";
 import { BiEditAlt } from "react-icons/bi";
-import { BiArrowToTop,BiArrowFromTop  } from "react-icons/bi";
+import { BiArrowToTop, BiArrowFromTop } from "react-icons/bi";
 import logo from "../../assets/logo-small.png";
 import { ModalContext } from "../../context/ModalContext";
 import { PlaygroundContext } from "../../context/PlaygroundContext";
@@ -155,11 +155,41 @@ const Logo = styled.img`
     margin-right: 0.5rem;
   }
 `;
+
+const SearchContainer = styled.div`
+  position: relative;
+  display: flex;
+  align-items: baseline;
+  width: 100%;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+`;
+
+const SearchInput = styled.input`
+  width: 100%;
+  padding: 0.5rem 2rem 0.5rem 0.5rem;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  outline: none;
+  font-size: 1rem;
+`;
+
+const SearchIcon = styled(IoSearch)`
+  position: absolute;
+  right: 10px;
+  cursor: pointer;
+  margin-top: 0.5rem;
+`;
+
 const RightComponent = () => {
   const navigate = useNavigate();
 
   const { openModal } = useContext(ModalContext);
   const { folders, deleteFolder, deleteCard } = useContext(PlaygroundContext);
+
+  const [searchTerm, setSearchTerm] = useState("");
+  const searchRefs = useRef({});
+
   const notifyDeleteSuccess = (message) => {
     toast.error(message, {
       position: "top-right",
@@ -194,7 +224,6 @@ const RightComponent = () => {
     rust: rust,
   };
 
-  // Function to scroll to the top
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
@@ -202,7 +231,6 @@ const RightComponent = () => {
     });
   };
 
-  // Function to scroll to the bottom
   const scrollToBottom = () => {
     window.scrollTo({
       top: document.documentElement.scrollHeight,
@@ -211,13 +239,49 @@ const RightComponent = () => {
   };
 
   const totalPlaygrounds = Object.values(folders).reduce(
-    (acc, folder) => acc + Object.keys(folder).length-1,
+    (acc, folder) => acc + Object.keys(folder).length - 1,
     0
   );
+
+  const handleSearchClick = () => {
+    if (searchTerm === "") {
+      toast.error("Please enter a search term.", {
+        position: "top-right",
+        autoClose: 2000,
+      });
+      return;
+    }
+
+    for (let ref in searchRefs.current) {
+      if (ref.toLowerCase().includes(searchTerm.toLowerCase())) {
+        searchRefs.current[ref].scrollIntoView({ behavior: "smooth" });
+        return;
+      }
+    }
+    toast.error("Nothing Found!!!", {
+      position: "top-right",
+      autoClose: 2000,
+    });
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      handleSearchClick();
+    }
+  };
 
   return (
     <>
       <StyledRightComponent>
+        <SearchContainer>
+          <SearchInput
+            placeholder="Search code snippets or folders..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            onKeyDown={handleKeyDown}
+          />
+          <SearchIcon onClick={handleSearchClick} />
+        </SearchContainer>
         <Header>
           <Heading size="large">
             My <span>Playground</span> [{totalPlaygrounds}]
@@ -238,96 +302,108 @@ const RightComponent = () => {
           </AddButton>
         </Header>
 
-        {Object.entries(folders).reverse().map(([folderId, folder]) => (
-          <FolderCard key={folderId}>
-            <Header>
-              <Heading size="small">
-                {/* <FcOpenedFolder /> {folder.title} */}
-                <Logo
-                  src={folderLogo}
-                  style={{ width: "30px", marginRight: "0" }}
-                />{" "}
-                {folder.title}
-                {" "}[{Object.keys(folder.playgrounds).length}]
-              </Heading>
-              <FolderIcons>
-                <IoTrashOutline onClick={() => handleDeleteFolder(folderId)} />
-                <BiEditAlt
-                  onClick={() =>
-                    openModal({
-                      show: true,
-                      modalType: 4,
-                      identifiers: {
-                        folderId: folderId,
-                        cardId: "",
-                      },
-                    })
-                  }
-                />
-                <AddButton
-                  onClick={() =>
-                    openModal({
-                      show: true,
-                      modalType: 2,
-                      identifiers: {
-                        folderId: folderId,
-                        cardId: "",
-                      },
-                    })
-                  }
-                >
-                  <span>+</span> New Playground
-                </AddButton>
-              </FolderIcons>
-            </Header>
-
-            <PlayGroundCards>
-              {Object.entries(folder["playgrounds"]).map(
-                ([playgroundId, playground]) => (
-                  <Card
-                    key={playgroundId}
-                    onClick={() => {
-                      navigate(`/playground/${folderId}/${playgroundId}`);
-                    }}
+        {Object.entries(folders)
+          .reverse()
+          .map(([folderId, folder]) => (
+            <FolderCard key={folderId}>
+              <Header ref={(el) => (searchRefs.current[folder.title] = el)}>
+                <Heading size="small">
+                  {/* <FcOpenedFolder /> {folder.title} */}
+                  <Logo
+                    src={folderLogo}
+                    style={{ width: "30px", marginRight: "0" }}
+                  />{" "}
+                  {folder.title} [{Object.keys(folder.playgrounds).length}]
+                </Heading>
+                <FolderIcons>
+                  <IoTrashOutline
+                    onClick={() => handleDeleteFolder(folderId)}
+                  />
+                  <BiEditAlt
+                    onClick={() =>
+                      openModal({
+                        show: true,
+                        modalType: 4,
+                        identifiers: {
+                          folderId: folderId,
+                          cardId: "",
+                        },
+                      })
+                    }
+                  />
+                  <AddButton
+                    onClick={() =>
+                      openModal({
+                        show: true,
+                        modalType: 2,
+                        identifiers: {
+                          folderId: folderId,
+                          cardId: "",
+                        },
+                      })
+                    }
                   >
-                    <CardContainer>
-                      <Logo src={languageLogos[playground.language] || logo} />
-                      <CardContent>
-                        <p>{playground.title}</p>
-                        <p>Language: {playground.language}</p>
-                      </CardContent>
-                    </CardContainer>
-                    <FolderIcons
-                      onClick={(e) => {
-                        e.stopPropagation(); //stop click propagation from child to parent
+                    <span>+</span> New Playground
+                  </AddButton>
+                </FolderIcons>
+              </Header>
+
+              <PlayGroundCards>
+                {Object.entries(folder["playgrounds"]).map(
+                  ([playgroundId, playground]) => (
+                    <Card
+                      key={playgroundId}
+                      ref={(el) => (searchRefs.current[playground.title] = el)}
+                      onClick={() => {
+                        navigate(`/playground/${folderId}/${playgroundId}`);
                       }}
                     >
-                      <IoTrashOutline
-                        onClick={() => handleDeleteCard(folderId, playgroundId)}
-                      />
-                      <BiEditAlt
-                        onClick={() =>
-                          openModal({
-                            show: true,
-                            modalType: 5,
-                            identifiers: {
-                              folderId: folderId,
-                              cardId: playgroundId,
-                            },
-                          })
-                        }
-                      />
-                    </FolderIcons>
-                  </Card>
-                )
-              )}
-            </PlayGroundCards>
-          </FolderCard>
-        ))}
+                      <CardContainer>
+                        <Logo
+                          src={languageLogos[playground.language] || logo}
+                        />
+                        <CardContent>
+                          <p>{playground.title}</p>
+                          <p>Language: {playground.language}</p>
+                        </CardContent>
+                      </CardContainer>
+                      <FolderIcons
+                        onClick={(e) => {
+                          e.stopPropagation(); //stop click propagation from child to parent
+                        }}
+                      >
+                        <IoTrashOutline
+                          onClick={() =>
+                            handleDeleteCard(folderId, playgroundId)
+                          }
+                        />
+                        <BiEditAlt
+                          onClick={() =>
+                            openModal({
+                              show: true,
+                              modalType: 5,
+                              identifiers: {
+                                folderId: folderId,
+                                cardId: playgroundId,
+                              },
+                            })
+                          }
+                        />
+                      </FolderIcons>
+                    </Card>
+                  )
+                )}
+              </PlayGroundCards>
+            </FolderCard>
+          ))}
       </StyledRightComponent>
-      <TopButton onClick={scrollToTop}><BiArrowToTop size={22} /></TopButton>
+      <TopButton onClick={scrollToTop}>
+        <BiArrowToTop size={22} />
+      </TopButton>
 
-      <BottomButton onClick={scrollToBottom}><BiArrowFromTop size={22} /></BottomButton>
+      <BottomButton onClick={scrollToBottom}>
+        <BiArrowFromTop size={22} />
+      </BottomButton>
 
       <ToastContainer />
     </>
