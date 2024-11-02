@@ -1,10 +1,12 @@
 import React, { useContext, useState } from "react";
 import CodeEditor from "./CodeEditor";
 import styled from "styled-components";
-import { BiEditAlt, BiImport, BiExport, BiFullscreen, BiPlay, BiStop } from "react-icons/bi";
+import { BiEditAlt, BiImport, BiExport, BiFullscreen } from "react-icons/bi";
+import { CgNotes } from "react-icons/cg";
 import { ModalContext } from "../../context/ModalContext";
 import Select from "react-select";
 import { languageMap } from "../../context/PlaygroundContext";
+import NotesDrawer from "./NotesDrawer";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -155,6 +157,7 @@ const EditorContainer = ({
   setIsFullScreen,
 }) => {
   const { openModal } = useContext(ModalContext);
+  const [drawerOpen, setDrawerOpen] = useState(false);
 
   const themeOptions = [
     { value: "vscodeDark", label: "vscode-Dark" },
@@ -237,6 +240,7 @@ const EditorContainer = ({
     saveCode();
   };
 
+
   return (
     <StyledEditorContainer isFullScreen={isFullScreen}>
       {!isFullScreen && (
@@ -255,12 +259,17 @@ const EditorContainer = ({
                     },
                   })
                 }
+              style={{ cursor: "pointer" }}
               />
             </Title>
             <Button onClick={notifySaveCode}>Save code</Button>
             <ToastContainer />
           </Header>
           <SelectBars>
+            <div style={{border:"1px solid #c8c4c4", maxWidth:"fit-content", padding:"6px", borderRadius:"4px"}}>
+              <CgNotes size={20} onClick={() => setDrawerOpen(true)} style={{ cursor: 'pointer' }} />
+            </div>
+            
             <Select
               options={languageOptions}
               value={language}
@@ -309,6 +318,7 @@ const EditorContainer = ({
         </a>
         <SaveAndRunButton onClick={runCode}>Run Code</SaveAndRunButton>
       </LowerToolBar>
+      <NotesDrawer open={drawerOpen} onClose={() => setDrawerOpen(false)} />
     </StyledEditorContainer>
   );
 };
