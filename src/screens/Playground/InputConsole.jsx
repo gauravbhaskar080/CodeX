@@ -38,7 +38,7 @@ export const TextArea = styled.textarea`
   padding: 0.25rem;
   padding-top: 0.5rem;
   font-size: 1.1rem;
-  min-height: 150px;
+  min-height: 120px;
 `
 const InputConsole = ({ currentInput, setCurrentInput, getFile }) => {
   return (

@@ -11,7 +11,7 @@ const StyledLeftComponent = styled.div`
   position: fixed;
   top: 0;
   left: 0;
-  width: 40%;
+  width: 35%;
   height: 100vh;
   background-color: #1e1e1e;
   display: flex;

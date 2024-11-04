@@ -7,8 +7,7 @@ import { ModalContext } from "../../context/ModalContext";
 import Select from "react-select";
 import { languageMap } from "../../context/PlaygroundContext";
 import NotesDrawer from "./NotesDrawer";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
 
 const StyledEditorContainer = styled.div`
   display: flex;
@@ -220,10 +219,9 @@ const EditorContainer = ({
     }
     return languageOptions[0];
   });
-
-  const notifySaveCode = () => {
-    toast.dismiss();
-    toast.success("Code Saved Successfully!!!", {
+  
+  const notifySuccess = (message) => {
+    toast.success(message, {
       position: "top-right",
       autoClose: 2000,
       hideProgressBar: false,
@@ -233,14 +231,12 @@ const EditorContainer = ({
       progress: undefined,
       progressStyle: {
         background: "green",
-        color: "#fff",
+        color: "#fff"
       },
-      progressBar: false,
+      progressBar : false
     });
-    saveCode();
   };
-
-
+  
   return (
     <StyledEditorContainer isFullScreen={isFullScreen}>
       {!isFullScreen && (
@@ -262,8 +258,10 @@ const EditorContainer = ({
               style={{ cursor: "pointer" }}
               />
             </Title>
-            <Button onClick={notifySaveCode}>Save code</Button>
-            <ToastContainer />
+            <Button onClick={()=>{
+              saveCode();
+              notifySuccess("Code saved successfully");
+            }}>Save code</Button>
           </Header>
           <SelectBars>
             <div style={{border:"1px solid #c8c4c4", maxWidth:"fit-content", padding:"6px", borderRadius:"4px"}}>

@@ -14,6 +14,8 @@ import { ModalContext } from "../../context/ModalContext";
 import Modal from "../../components/Modal";
 import { Buffer } from "buffer";
 import axios from "axios";
+import VideoConsole from "./VideoConsole";
+
 
 
 // const MainContainer = styled.div`
@@ -33,13 +35,13 @@ const MainContainer = styled.div`
     isFullScreen ? "100vh" : "calc(100vh - 4.5rem)"};
   grid-template-columns: ${({ isFullScreen }) =>
     isFullScreen ? "1fr" : "2fr 1fr"};
-  overflow: hidden; // Ensures no scrollbars
   @media (max-width: 1000px) {
     overflow: auto; 
   }
   @media (max-width: 768px) {
-    grid-template-columns: 1fr;
-    overflow: auto; 
+    display:flex;
+    flex-direction: column;
+    height: auto;
   }
 `;
 
@@ -49,6 +51,7 @@ const Consoles = styled.div`
   width: 100%;
   grid-template-rows: 1fr 1fr;
   grid-template-columns: 1fr;
+  overflow-y:auto;
 `;
 
 const Playground = () => {
@@ -239,6 +242,7 @@ const Playground = () => {
           setIsFullScreen={setIsFullScreen}
         />
         <Consoles>
+          <VideoConsole />
           <InputConsole
             currentInput={currentInput}
             setCurrentInput={setCurrentInput}

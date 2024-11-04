@@ -14,7 +14,7 @@ export const languageMap = {
       "\treturn 0;\n" +
       "}",
     leetCode1:
-      "#include <bits/stdc++.h>\n"+
+      "#include <bits/stdc++.h>\n" +
       "using namespace std;\n\n" +
       "vector<int> twoSum(vector<int>& nums, int target) {\n" +
       "    unordered_map<int, int> mp;\n" +
@@ -26,7 +26,7 @@ export const languageMap = {
       "        mp[nums[i]] = i;\n" +
       "    }\n" +
       "    return {};\n" +
-      "}\n\n"+
+      "}\n\n" +
       "int main() {\n" +
       "    vector<int> nums = {2, 7, 11, 15};\n" +
       "    int target = 9;\n" +
@@ -36,30 +36,29 @@ export const languageMap = {
       "    }\n" +
       "    return 0;\n" +
       "}",
-    
-    leetCode2:
-    //linked list cycle
-    "#include <bits/stdc++.h>\n" +
-    "using namespace std;\n\n" +
-    "struct ListNode\n" +
-    "{\n" +
-    "   int val;\n" +
-    "   ListNode *next;\n" +
-    "   ListNode(int x) : val(x), next(nullptr) {};\n" +
-    "};\n\n" +
-    "bool hasCycle(ListNode *head){\n" +
-    "   if (head == NULL) return 0;\n" +
-    "   ListNode *slow = head;\n" +
-    "   ListNode *fast = head;\n" +
-    "   while (fast && fast->next){\n" +
-    "      slow = slow->next;\n" +
-    "      fast = fast->next->next;\n" +
-    "      if (slow == fast) return true;\n" +
-    "   }\n" +
-    "   return false;\n" +
-    "}\n\n" +
 
-    "int main() {\n" +
+    leetCode2:
+      //linked list cycle
+      "#include <bits/stdc++.h>\n" +
+      "using namespace std;\n\n" +
+      "struct ListNode\n" +
+      "{\n" +
+      "   int val;\n" +
+      "   ListNode *next;\n" +
+      "   ListNode(int x) : val(x), next(nullptr) {};\n" +
+      "};\n\n" +
+      "bool hasCycle(ListNode *head){\n" +
+      "   if (head == NULL) return 0;\n" +
+      "   ListNode *slow = head;\n" +
+      "   ListNode *fast = head;\n" +
+      "   while (fast && fast->next){\n" +
+      "      slow = slow->next;\n" +
+      "      fast = fast->next->next;\n" +
+      "      if (slow == fast) return true;\n" +
+      "   }\n" +
+      "   return false;\n" +
+      "}\n\n" +
+      "int main() {\n" +
       "    ListNode *head = new ListNode(3);\n" +
       "    ListNode *two = new ListNode(2);\n" +
       "    ListNode *zero = new ListNode(0);\n" +
@@ -75,10 +74,10 @@ export const languageMap = {
   java: {
     id: 62,
     defaultCode: `public class Main {
-            public static void main(String[] args) {
-                System.out.println("Hello World!");
-            }
-    }`,
+    public static void main(String[] args) {
+        System.out.println("Hello World!");
+    }
+}`,
   },
   python: {
     id: 71,
@@ -98,51 +97,63 @@ export const languageMap = {
   },
 };
 const PlaygroundProvider = ({ children }) => {
+  const LEETCODE_FOLDER_ID = "leetcode-problems";
+  const TWO_SUM_ID = "two-sum-problem";
+  const LINKED_LIST_CYCLE_ID = "linked-list-cycle-problem";
+
+  const DSA_FOLDER_ID = "dsa";
+  const CPP_EXAMPLE_ID = "cpp-example";
+  const JAVA_EXAMPLE_ID = "java-example";
+  const PYTHON_EXAMPLE_ID = "python-example";
+  const JAVASCRIPT_EXAMPLE_ID = "javascript-example";
+  const PHP_EXAMPLE_ID = "php-example";
+  const RUST_EXAMPLE_ID = "rust-example";
+
   const initialItems = {
-    [uuid()]: {
+    [DSA_FOLDER_ID]: {
       title: "DSA",
       playgrounds: {
-        [uuid()]: {
+        [CPP_EXAMPLE_ID]: {
           title: "C++ Example",
           language: "cpp",
           code: languageMap["cpp"].defaultCode,
         },
-        [uuid()]: {
+        [JAVA_EXAMPLE_ID]: {
           title: "Java Example",
           language: "java",
           code: languageMap["java"].defaultCode,
         },
-        [uuid()]: {
+        [PYTHON_EXAMPLE_ID]: {
           title: "Python Example",
           language: "python",
           code: languageMap["python"].defaultCode,
         },
-        [uuid()]: {
+        [JAVASCRIPT_EXAMPLE_ID]: {
           title: "Javascript Example",
           language: "javascript",
           code: languageMap["javascript"].defaultCode,
         },
-        [uuid()]: {
+        [PHP_EXAMPLE_ID]: {
           title: "Php Example",
           language: "php",
           code: languageMap["php"].defaultCode,
         },
-        [uuid()]: {
+        [RUST_EXAMPLE_ID]: {
           title: "Rust Example",
           language: "rust",
           code: languageMap["rust"].defaultCode,
         },
       },
     },
-    [uuid()]: {
+    [LEETCODE_FOLDER_ID]: {
       title: "LeetCode Questions",
       playgrounds: {
-        [uuid()]: {
+        [TWO_SUM_ID]: {
           title: "Two Sum",
           language: "cpp",
           code: languageMap["cpp"].leetCode1,
         },
-        [uuid()]: {
+        [LINKED_LIST_CYCLE_ID]: {
           title: "Linked List Cycle",
           language: "cpp",
           code: languageMap["cpp"].leetCode2,
@@ -151,9 +162,30 @@ const PlaygroundProvider = ({ children }) => {
     },
   };
 
+  const initializeVideos = () => {
+    const videos = {
+      [`videos_${LEETCODE_FOLDER_ID}/${TWO_SUM_ID}`]: "https://www.youtube.com/embed/UXDSeD9mN-k",
+      [`videos_${LEETCODE_FOLDER_ID}/${LINKED_LIST_CYCLE_ID}`]: "https://www.youtube.com/embed/wiOo4DC5GGA",
+      [`videos_${DSA_FOLDER_ID}/${CPP_EXAMPLE_ID}`]: "https://youtube.com/embed/EAR7De6Goz4",
+      [`videos_${DSA_FOLDER_ID}/${JAVA_EXAMPLE_ID}`]: "https://youtube.com/embed/eIrMbAQSU34",
+      [`videos_${DSA_FOLDER_ID}/${PYTHON_EXAMPLE_ID}`]: "https://youtube.com/embed/vLqTf2b6GZw",
+      [`videos_${DSA_FOLDER_ID}/${JAVASCRIPT_EXAMPLE_ID}`]: "https://youtube.com/embed/pN6jk0uUrD8",
+      [`videos_${DSA_FOLDER_ID}/${PHP_EXAMPLE_ID}`]: "https://youtube.com/embed/1SnPKhCdlsU",
+      [`videos_${DSA_FOLDER_ID}/${RUST_EXAMPLE_ID}`]: "https://youtube.com/embed/qP7LzZqGh30"
+    };
+  
+    Object.entries(videos).forEach(([key, url]) => {
+      if (!localStorage.getItem(key)) {
+        localStorage.setItem(key, JSON.stringify([url]));
+      }
+    });
+  };
+  
+
   const [folders, setFolders] = useState(() => {
     let localData = localStorage.getItem("playgrounds-data");
     if (localData === null || localData === undefined) {
+      initializeVideos();
       return initialItems;
     }
 
